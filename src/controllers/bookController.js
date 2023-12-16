@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const messages = require("../resources/messages");
 
 exports.getAllBooks = async (req, res, next) => {
   try {
@@ -21,7 +22,6 @@ exports.getBook = async (req, res, next) => {
       console.log("here");
     }
   } catch (error) {
-    console.log("error");
     next(error);
   }
 };
@@ -49,7 +49,7 @@ exports.createBook = async (req, res, next) => {
 exports.deleteAllBooks = async (req, res, next) => {
   try {
     await Book.deleteMany();
-    res.status(200).json({ message: "All records are deleted!" });
+    res.status(200).json({ message: messages.allBooksAreDeleted });
   } catch (error) {
     next(error);
   }
