@@ -16,3 +16,5 @@ const port = process.env.LOCAL_PORT || 3000;
 app.listen(port, () => {
   console.log(`I am up and listening on port ${port}`);
 });
+
+module.exports = app;

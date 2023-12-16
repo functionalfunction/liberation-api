@@ -4,7 +4,7 @@ const messages = require("../resources/messages");
 exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
-    res.json(users);
+    res.status(200).json(users);
   } catch (error) {
     next(error);
   }
@@ -14,11 +14,11 @@ exports.getUser = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    const user = await User.find({ id: id });
+    const user = await User.findOne({ id: id });
 
     console.log(user);
 
-    if (user.id) {
+    if (user) {
       res.status(200).json(user);
     } else {
       res.status(404).json({ message: messages.userDoesNotExists });
