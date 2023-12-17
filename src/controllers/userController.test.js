@@ -5,7 +5,13 @@ const User = require("../models/user");
 
 jest.mock("../models/user");
 
-const mockUser = { id: 7, name: "Bookworm" };
+const mockUser = { id: 16, name: "Bookworm" };
+const mockUserCreate = {
+  id: 16,
+  name: "Giray",
+  _id: "657ec2349185da79aea50183",
+  __v: 0,
+};
 const mockUsers = [{ id: 1, name: "Bookworm", id: 2, name: "Bookworm" }];
 
 describe("User DB Tests", () => {
@@ -23,13 +29,6 @@ describe("User DB Tests", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUsers);
-  });
-
-  it("GET /users/:id returns one record", async () => {
-    const response = await request(app).get("/users/:id");
-
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(mockUser);
   });
 
   it("GET /users/:id returns one record", async () => {

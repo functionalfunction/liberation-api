@@ -37,8 +37,8 @@ exports.deleteBook = async (req, res, next) => {
 
 exports.createBook = async (req, res, next) => {
   try {
-    const { id, name, author } = req.body;
-    const newBook = new Book({ id, name, author });
+    const { id, name, author, authorId } = req.body;
+    const newBook = new Book({ id, name, author, authorId });
     await newBook.save();
     res.status(201).json(newBook);
   } catch (error) {
@@ -50,6 +50,22 @@ exports.deleteAllBooks = async (req, res, next) => {
   try {
     await Book.deleteMany();
     res.status(200).json({ message: messages.allBooksAreDeleted });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getBooksOfAnAAuthor = async (req, res, next) => {
+  try {
+    const authorId = req.params.authorId;
+    console.log(authorId);
+
+    if (authorId) {
+      const books = await Book.find({ authorId: authorId });
+      res.status(200).json(books);
+    } else {
+      res.status(404).json({ message: messages.authorDoesNotExists });
+    }
   } catch (error) {
     next(error);
   }
