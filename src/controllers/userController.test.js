@@ -14,7 +14,7 @@ const mockUserCreate = {
 };
 const mockUsers = [{ id: 1, name: "Bookworm", id: 2, name: "Bookworm" }];
 
-describe("User DB Tests", () => {
+describe("UserController Tests", () => {
   beforeAll(async () => {
     User.findOne.mockResolvedValue(mockUser);
     User.find.mockResolvedValue(mockUsers);

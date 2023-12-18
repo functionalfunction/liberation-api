@@ -1,11 +1,12 @@
 const Book = require("../models/book");
 const messages = require("../resources/messages");
+const stringOperations = require("../utils/stringOperations");
 
 exports.getAllBooks = async (req, res, next) => {
   try {
     const books = await Book.find();
     console.log(books);
-    res.json(books);
+    res.status(200).json(books);
   } catch (error) {
     next(error);
   }
@@ -38,7 +39,9 @@ exports.deleteBook = async (req, res, next) => {
 exports.createBook = async (req, res, next) => {
   try {
     const { id, name, author, authorId } = req.body;
-    const newBook = new Book({ id, name, author, authorId });
+    const formattedName = stringOperations.makeTheFirstLettersUppercase(name);
+    console.log(formattedName);
+    const newBook = new Book({ id, name: formattedName, author, authorId });
     await newBook.save();
     res.status(201).json(newBook);
   } catch (error) {
